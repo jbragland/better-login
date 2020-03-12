@@ -2,9 +2,9 @@
 
 /**
  * Plugin Name: Better Login
- * Plugin URI: http://www.julianneragland.com
+ * Plugin URI: https://github.com/jbragland/better-login
  * Description: Replaces WordPress's link, logo and name on the login page with your site's link, logo and name.
- * Version: 1.0
+ * Version: 1.0.0
  * Author: Julianne Ragland
  * Author URI: http://www.julianneragland.com
  */
@@ -19,7 +19,7 @@ function bl_get_custom_logo_url() {
     }
 }
 
-// Fix login logo
+// Replace login logo
 add_action( 'login_enqueue_scripts', 'bl_customize_login_logo' );
 function bl_customize_login_logo() {
 	$logo_url = bl_get_custom_logo_url();
@@ -28,6 +28,7 @@ function bl_customize_login_logo() {
         <style type="text/css">
             #login h1 a {
                 background-image: url('<?php echo $logo_url; ?>');
+                background-position: center;
                 background-size: contain;
             }
         </style>
@@ -35,13 +36,14 @@ function bl_customize_login_logo() {
     }
 }
 
-// Fix login header URL
+// Replace login header URL
 add_filter( 'login_headerurl', 'bl_customize_login_url' );
 function bl_customize_login_url( $url ) {
-    return get_home_url();
+    $url = get_home_url();
+    return $url;
 }
 
-// Fix login header text
+// Replace login header text
 add_filter( 'login_headertext', 'bl_customize_login_headertext' );
 function bl_customize_login_headertext( $headertext ) {
 	$headertext = get_bloginfo( 'name' );
